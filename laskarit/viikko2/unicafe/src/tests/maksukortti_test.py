@@ -10,6 +10,13 @@ class TestMaksukortti(unittest.TestCase):
 
     def test_saldo_oikein(self):
         self.assertEqual(self.maksukortti.saldo,1000)
+    
+    def test_saldo_euroina(self):
+        self.assertEqual(self.maksukortti.saldo_euroina(),10)
+
+    def test_saldo_euroina_str(self):
+        self.assertEqual(self.maksukortti.__str__(),"Kortilla on rahaa 10.00 euroa")
+
 
     def test_rahan_lisays(self):
         self.maksukortti.lataa_rahaa(100)
