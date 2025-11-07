@@ -33,8 +33,12 @@ class TestKassapaate(unittest.TestCase):
         self.assertEqual(self.kassapaate.kassassa_rahaa,100400)
         self.assertEqual(self.kassapaate.maukkaat,1)
 
-    def test_maukas_kateisella(self):
+    def test_maukas_ei_rahaa(self):
         self.assertEqual(self.kassapaate.syo_maukkaasti_kateisella(200),200)
+
+
+#    def test_maukas_kateisella(self):
+#        self.assertEqual(self.kassapaate.syo_maukkaasti_kateisella(200),200)
         
     def test_edullinen_kortilla(self):
         self.maksukortti.lataa_rahaa(240)
@@ -57,3 +61,11 @@ class TestKassapaate(unittest.TestCase):
         self.assertEqual(self.kassapaate.syo_maukkaasti_kortilla(self.maksukortti),False)
         self.assertEqual(self.kassapaate.kassassa_rahaa,100000)
         self.assertEqual(self.kassapaate.maukkaat,0)
+
+    def test_laita_rahaa_kortille(self):
+        self.kassapaate.lataa_rahaa_kortille(self.maksukortti,200)
+        self.assertEqual(self.kassapaate.kassassa_rahaa,100200)
+
+    def test_laita_rahaa_kortille_ei_rahaa(self):
+        self.kassapaate.lataa_rahaa_kortille(self.maksukortti,-100)
+        self.assertEqual(self.kassapaate.kassassa_rahaa,100000)
