@@ -13,12 +13,12 @@
     Ruutu "1" --> "2" Yhteishyvä
     Ruutu --> "4" Asema
     Ruutu --> "2" Laitokset
-    Ruutu --> "18" Normaalit_kadut
+    Ruutu --> "18" Normaalitkadut
     Ruutu "1" -- "1" Ruutu : seuraava
     Ruutu "1" -- "0..8" Pelinappula
     Pelinappula "1" -- "1" Pelaaja
     Pelaaja "2..8" -- "1" Monopolipeli
-    Class Normaalit_kadut{
+    Class Normaalitkadut{
         +func build house
         +func build hotel
     }
