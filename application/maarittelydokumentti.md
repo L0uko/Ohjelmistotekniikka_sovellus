@@ -9,5 +9,6 @@ Suunnitellut toiminnallisuudet:
  - kaikki tetriksen normaalit palat
  - tapa pyöritellä paloja
  - pisteenlasku
+ - tapa nopeuttaa palojen putoamista
  - (jos aikaa niin leaderboard)
  - 
