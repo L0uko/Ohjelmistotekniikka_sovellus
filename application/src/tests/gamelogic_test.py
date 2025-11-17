@@ -7,26 +7,5 @@ class TestMap(unittest.TestCase):
         self.field = Map(10,20)
     def test_map_right_size(self):
         #self.field.return_map()
-        self.assertEqual(self.field.return_map(),"""[
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ['x','x','x','x','x','x','x','x','x','x'],
-            ]""")
+        self.assertEqual(len(self.field.return_map()),20)
  

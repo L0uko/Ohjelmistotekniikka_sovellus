@@ -9,11 +9,11 @@ class Map():
         return None
 
     def return_map(self):
-        return str(self.map)
+        return self.map
         #for row in self.map:
         #    print(row)
 field = Map(10,20)
-print(field.return_map())
+print(len(field.return_map()))
 
 
 """[
