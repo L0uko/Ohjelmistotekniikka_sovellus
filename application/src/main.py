@@ -1,8 +1,6 @@
-import tkinter as tk
+import tk as tk
 import cowsay
+import gamelogic as gamelogic
 
 cowsay.tux("TkT Inter")
-root = tk.Tk()
-root.geometry("500x500")
 
-root.mainloop()
