@@ -20,5 +20,5 @@ def coverage_report(ctx):
 
 @task
 def test(ctx):
-    ctx.run("poetry run pytest", pty=True)
+    ctx.run("poetry run pytest ", pty=True)
     
