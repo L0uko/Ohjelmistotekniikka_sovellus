@@ -1,5 +1,12 @@
-Ohjelmistotekniikka, harjoitustyö
 
-Aion tehdä **projektin**, millä voi päästä tästä *kurssista läpi*
+ # Ohjelmistotekniikan Tetris projekti
+Sovelluksella voidaan pelata klassista Tetristä. Sovellus on tehty Pythonilla ja tKinterillä
 
-[Tuntikirjanpito](https://github.com/L0uko/Ohjelmistotekniikka_sovellus/blob/724bcd6eb4eab6e8420be0c0504cd3072fd0932e/dokumentaatio/tuntikirjanpito.md)
+## Dokumentaatio
+ - [Käyttöohje]()
+ - [Vaatimusmäärittely](application/dokumentaatio/maarittelydokumentti.md)
+ - [Arkkitehtuurikuvaus]()
+ - [Tuntikirjanpito](application/dokumentaatio/tuntikirjanpito.md)
+ - [Changelog](application/dokumentaatio/changelog.md)
+
+
