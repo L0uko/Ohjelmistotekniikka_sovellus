@@ -1,6 +1,6 @@
-from invoke import task
-from subprocess import call
 from sys import platform
+from subprocess import call
+from invoke import task
 
 
 
@@ -21,4 +21,7 @@ def coverage_report(ctx):
 @task
 def test(ctx):
     ctx.run("poetry run pytest ", pty=True)
-    
+
+@task
+def format(ctx):
+    ctx.run("poetry run autopep8 --in-place --recursive src")
