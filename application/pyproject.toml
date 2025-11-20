@@ -6,7 +6,7 @@ authors = ["Louko <touko.t.toivonen@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.14"
+python = "^3.12"
 invoke = "^2.2.1"
 cowsay = "^6.1"
 tk = "^0.1.0"
@@ -16,6 +16,7 @@ tk = "^0.1.0"
 pytest = "^9.0.1"
 coverage = "^7.11.3"
 pylint = "^4.0.3"
+autopep8 = "^2.3.2"
 
 [build-system]
 requires = ["poetry-core"]
