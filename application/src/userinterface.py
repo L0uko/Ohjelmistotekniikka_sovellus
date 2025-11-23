@@ -2,13 +2,16 @@ import tkinter
 import gamelogic
 
 class UI:
-    def __init__(self, root):
+    def __init__(self, root, field):
         self._root = root
+        self._field = field
+        #self._root.geometry
+        self._gamestate = tkinter.Variable()
+        self._gamestate.set(self._field.return_map_str())
 
     def start(self):
         label = tkinter.Label(master=self._root, text="Tämä on Tetris", font=("Monocraft",10))
 
         label.grid()
-        textbox = tkinter.Label(master=self._root, text="placeholder")
-        textbox.grid()
-
+        tetrisbox = tkinter.Label(master=self._root, textvariable=self._gamestate)
+        tetrisbox.grid()

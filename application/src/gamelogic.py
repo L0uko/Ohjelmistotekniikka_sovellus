@@ -16,6 +16,8 @@ class Map():
         _mapstring = _mapstring.replace('], ',']\n')
         _mapstring = _mapstring.replace('[',"")
         _mapstring = _mapstring.replace(']',"")
+        _mapstring = _mapstring.replace("'","")
+        _mapstring = _mapstring.replace(','," ")
         return _mapstring
         # for row in self.map:
         #    print(row)
