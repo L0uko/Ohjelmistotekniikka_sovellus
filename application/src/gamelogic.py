@@ -22,3 +22,6 @@ class Map():
         # for row in self.map:
         #    print(row)
 
+class Clock():
+    def __init__(self):
+        pass

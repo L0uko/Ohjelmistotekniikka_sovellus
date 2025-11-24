@@ -11,7 +11,6 @@ class UI:
 
     def start(self):
         label = tkinter.Label(master=self._root, text="Tämä on Tetris", font=("Monocraft",10))
-
-        label.grid()
+        label.pack(padx=10, pady=10)
         tetrisbox = tkinter.Label(master=self._root, textvariable=self._gamestate)
-        tetrisbox.grid()
+        tetrisbox.pack(padx=10, pady=10)
