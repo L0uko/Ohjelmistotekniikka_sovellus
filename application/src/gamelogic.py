@@ -1,3 +1,5 @@
+import time
+
 class Map():
     def __init__(self, width, height):
         self._map = []
@@ -24,4 +26,9 @@ class Map():
 
 class Clock():
     def __init__(self):
+        while True:
+            #check_if_moved()
+            #check_piece_spot()
+            #update_map()
+            time.sleep(0.1)
         pass
