@@ -1,11 +1,12 @@
 import tkinter
-import cowsay
+#import cowsay
 import gamelogic
 import userinterface
 
 field = gamelogic.Map(10, 20)
 field.new_block(0,3)
-cowsay.tux("TkT Inter")
+print(field.return_map_str())
+#cowsay.tux("TkT Inter")
 window = tkinter.Tk()
 window.title("TkInter example")
 window.geometry("500x500")

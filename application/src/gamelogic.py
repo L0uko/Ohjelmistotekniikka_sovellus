@@ -17,8 +17,7 @@ class Map():
             [1,0],
             [1,1]
         ]
-        possible_blocks = [self.block_t]
-        return None
+        #possible_blocks = [self.block_t]
 
     def return_map(self):
         return self._map
@@ -39,8 +38,6 @@ class Map():
                 if self.block_t[r][c] == 1:  # only place filled cells
                     self._map[row + r][column + c] = 1
 
-        return None
-
 class Clock():
     def __init__(self):
         while True:
@@ -50,4 +47,3 @@ class Clock():
             #check_if_row()
             #update_map()
             time.sleep(0.1)
-        

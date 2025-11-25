@@ -1,6 +1,4 @@
 import tkinter
-import gamelogic
-
 class UI:
     def __init__(self, root, field):
         self._root = root
