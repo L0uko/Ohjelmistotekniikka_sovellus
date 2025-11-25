@@ -1,13 +1,23 @@
 import time
 
 class Map():
-    def __init__(self, width, height):
+    def __init__(self, rows, columns):
         self._map = []
         __row = []
-        for j in range(width):
-            __row.append("x")
-        for i in range(height):
+        for _ in range(rows):
+            __row.append(0)
+        for _ in range(columns):
             self._map.append(__row)
+        self.block_t = [
+            [0, 1, 0],
+            [1, 1, 1]
+            ]
+        self.block_l = [
+            [1,0],
+            [1,0],
+            [1,1]
+        ]
+        possible_blocks = [self.block_t]
         return None
 
     def return_map(self):
@@ -23,6 +33,13 @@ class Map():
         return _mapstring
         # for row in self.map:
         #    print(row)
+    def new_block(self, row, column):
+        for r in range(len(self.block_t)):
+            for c in range(len(self.block_t[0])):
+                if self.block_t[r][c] == 1:  # only place filled cells
+                    self._map[row + r][column + c] = 1
+
+        return None
 
 class Clock():
     def __init__(self):
@@ -33,4 +50,4 @@ class Clock():
             #check_if_row()
             #update_map()
             time.sleep(0.1)
-        pass
+        

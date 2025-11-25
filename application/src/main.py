@@ -4,6 +4,7 @@ import gamelogic
 import userinterface
 
 field = gamelogic.Map(10, 20)
+field.new_block(0,3)
 cowsay.tux("TkT Inter")
 window = tkinter.Tk()
 window.title("TkInter example")
