@@ -6,3 +6,7 @@ viikko3
 
 viikko4
 - 21.11 4h tkinter troubleshoot
+- 23.11 4h kartan printtaaminen tkintterillä
+- 25.11 3h uuden palikan luominen ja printtaaminen tkintterillä
+
+total == 17h

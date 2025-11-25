@@ -24,4 +24,4 @@ def test(ctx):
 
 @task
 def format(ctx):
-    ctx.run("poetry run autopep8 --in-place --recursive src")
+    ctx.run("poetry run autopep8 -v --in-place --recursive src")
