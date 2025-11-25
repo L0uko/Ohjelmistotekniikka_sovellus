@@ -28,7 +28,9 @@ class Clock():
     def __init__(self):
         while True:
             #check_if_moved()
+            #check_if_rotated()
             #check_piece_spot()
+            #check_if_row()
             #update_map()
             time.sleep(0.1)
         pass
