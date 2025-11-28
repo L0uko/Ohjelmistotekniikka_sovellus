@@ -1,13 +1,15 @@
+from pprint import pprint
 import time
 
 
 class Map():
     def __init__(self, rows, columns):
         self._map = []
-        __row = []
-        for _ in range(rows):
-            __row.append(0)
         for _ in range(columns):
+            __row = []
+            for _ in range(rows):
+                __row.append(0)
+
             self._map.append(__row)
         self.block_t = [
             [0, 1, 0],
@@ -35,11 +37,12 @@ class Map():
         #    print(row)
 
     def new_block(self, row, column):
-        for r in range(len(self.block_t)):
-            for c in range(len(self.block_t[0])):
-                if self.block_t[r][c] == 1:  # only place filled cells
-                    self._map[row + r][column + c] = 1
-
+        for i_r, r in enumerate(self.block_t):
+            print("column:", r)
+            for i_c, c in enumerate(r):
+                print("row", c)
+                if c == 1:  # only place filled cells
+                    self._map[row + i_r][column + i_c] = 1
 
 class Clock():
     def __init__(self):
