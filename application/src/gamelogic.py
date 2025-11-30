@@ -1,5 +1,6 @@
-from pprint import pprint
+import random
 import time
+import userinterface
 
 
 class Map():
@@ -11,19 +12,59 @@ class Map():
                 __row.append(0)
 
             self._map.append(__row)
-        self.block_t = [
+
+        self._block_i = [
+            [1, 1, 1, 1]
+        ]
+        
+        self._block_o = [
+            [1, 1],
+            [1, 1]
+        ]
+
+        self._block_t = [
             [0, 1, 0],
             [1, 1, 1]
         ]
-        self.block_l = [
+
+        self._block_s = [
+            [0, 1, 1],
+            [1, 1, 0]
+        ]
+
+        self._block_z = [
+            [1, 1, 0],
+            [0, 1, 1]
+        ]
+
+        self._block_j = [
+            [0, 1],
+            [0, 1],
+            [1, 1]
+        ]
+
+        self._block_l = [
             [1, 0],
             [1, 0],
             [1, 1]
         ]
-        # possible_blocks = [self.block_t]
+
+        self._possible_blocks = [
+            self._block_i,
+            self._block_o,
+            self._block_t,
+            self._block_s,
+            self._block_z,
+            self._block_j,
+            self._block_l
+            ]
 
     def return_map(self):
         return self._map
+
+    def return_block_list(self):
+        """ Returns blocklist in order I O T S Z J L """
+        return self._possible_blocks
 
     def return_map_str(self):
         _mapstring = str(self._map)
@@ -33,11 +74,10 @@ class Map():
         _mapstring = _mapstring.replace("'", "")
         _mapstring = _mapstring.replace(',', " ")
         return _mapstring
-        # for row in self.map:
-        #    print(row)
 
-    def new_block(self, row, column):
-        for i_r, r in enumerate(self.block_t):
+
+    def new_block(self, row, column, block):
+        for i_r, r in enumerate(block):
             print("column:", r)
             for i_c, c in enumerate(r):
                 print("row", c)

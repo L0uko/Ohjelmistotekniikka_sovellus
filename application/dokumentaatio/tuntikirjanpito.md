@@ -10,3 +10,6 @@ viikko4
 - 25.11 3h uuden palikan luominen ja printtaaminen tkintterillä
 
 total == 17h
+
+viikko5
+- 2h palojen luominen
