@@ -1,9 +1,10 @@
+import pygame
 import random
 import time
 import userinterface
 
 
-class Map():
+class Map:
     def __init__(self, rows, columns):
         self._map = []
         for _ in range(columns):
@@ -16,7 +17,7 @@ class Map():
         self._block_i = [
             [1, 1, 1, 1]
         ]
-        
+
         self._block_o = [
             [1, 1],
             [1, 1]
@@ -58,6 +59,7 @@ class Map():
             ]
 
     def return_map(self):
+        """ Returns the map in matrix formation """
         return self._map
 
     def return_block_list(self):
@@ -65,6 +67,7 @@ class Map():
         return self._possible_blocks
 
     def return_map_str(self):
+        """ Returns map as a string """
         _mapstring = str(self._map)
         _mapstring = _mapstring.replace('], ', ']\n')
         _mapstring = _mapstring.replace('[', "")
@@ -82,12 +85,16 @@ class Map():
                 if c == 1:  # only place filled cells
                     self._map[row + i_r][column + i_c] = 1
 
-class Clock():
-    def __init__(self):
+class Gameloop:
+    def __init__(self, field: Map, ui: userinterface.UI):
+        self._field = field
+        self._ui = ui
+
+    def start(self):
         while True:
-            # check_if_moved()
             # check_if_rotated()
+            # check_if_moved()
             # check_piece_spot()
-            # check_if_row()
-            # update_map()
-            time.sleep(0.1)
+            # check_if_got_points()
+            print(self._field.return_map_str()) # update_map()
+            time.sleep(1)
