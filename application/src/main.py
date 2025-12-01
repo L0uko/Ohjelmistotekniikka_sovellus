@@ -5,19 +5,20 @@ import random
 #Muistiinpanot
 # - merkitse ykkösellä liikkuvia paloja
 # - merkitse kakkosella paikallaan olevia paloja
-# 
+
+def main():
+    # Standard Tetris board: 20 rows x 10 columns
+    rows = 20
+    columns = 10
+    field = gamelogic.Map(rows, columns)
+    ui = userinterface.UI(cell_size=30)  # 30px per cell
+    game = gamelogic.Gameloop(field, ui)
+    game.start()
 
 
-field = gamelogic.Map(10, 20)
-field.new_block(0, 0, field.return_block_list()[random.randint(0,6)])
-print(field.return_map_str())
+if __name__ == "__main__":
+    main()
 
-window = tkinter.Tk()
-window.title("TkInter example")
-window.geometry("500x500")
 
-userinterface = userinterface.UI(window, field)
-gameloop = gamelogic.Gameloop(field, userinterface)
-userinterface.start()
 
 #window.mainloop()
