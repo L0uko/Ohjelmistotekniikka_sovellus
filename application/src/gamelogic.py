@@ -192,23 +192,34 @@ class CurrentPiece:
         self.left_c = 0
         self.color = (255, 255, 255)
 
-    def spawn(self):
+    def spawn(self, shape_index=None):
         blocks = self._field.return_block_list()
-        self.shape_index = random.randint(0, len(blocks) - 1)
+        # If caller provides shape_index, use it; otherwise random
+        if shape_index is None:
+            self.shape_index = random.randint(0, len(blocks) - 1)
+        else:
+            # Clamp to valid range
+            self.shape_index = max(0, min(shape_index, len(blocks) - 1))
+
         base = blocks[self.shape_index]
+
         # Random rotation to add variety
         rot_count = random.randint(0, 3)
         b = base
         for _ in range(rot_count):
             b = self._field.rotate_block(b)
+
         self.block = b
         self.color = self._field.color_for_index(self.shape_index)
+
         # Center horizontally
         width = len(self.block[0])
         self.left_c = (self._field.columns() - width) // 2
         self.top_r = 0
+
         # If can't place at spawn -> game over condition
         return self._field.can_place(self.block, self.top_r, self.left_c)
+
 
     def try_move(self, d_r, d_c):
         new_r = self.top_r + d_r
