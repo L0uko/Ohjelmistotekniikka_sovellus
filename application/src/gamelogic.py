@@ -85,10 +85,22 @@ class Map:
                 if c == 1:  # only place filled cells
                     self._map[row + i_r][column + i_c] = 1
 
+class Clock:
+    def __init__(self):
+        self._clock = pygame.time.Clock()
+
+    def tick(self, fps):
+        self._clock.tick(fps)
+
+    def get_ticks(self):
+        return pygame.time.get_ticks()
+
 class Gameloop:
     def __init__(self, field: Map, ui: userinterface.UI):
         self._field = field
         self._ui = ui
+
+    
 
     def start(self):
         while True:
