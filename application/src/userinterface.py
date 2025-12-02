@@ -1,5 +1,6 @@
 import pygame
 
+
 class UI:
     def __init__(self, cell_size=30):
         self.cell_size = cell_size
@@ -74,13 +75,19 @@ class UI:
         self.screen.blit(l_text, (self.margin + 200, hud_y + 10))
         self.screen.blit(lines_text, (self.margin + 360, hud_y + 10))
 
-        tip_text = self.font.render("Arrows to move/rotate (Up to rotate). Space to hard drop. Esc to quit.", True, (150, 150, 150))
+        tip_text = self.font.render(
+            "Arrows to move/rotate (Up to rotate). Space to hard drop. Esc to quit.",
+            True, (150, 150, 150)
+        )
         self.screen.blit(tip_text, (self.margin, hud_y + 40))
 
     def draw_game_over(self, score):
         self.screen.fill((10, 10, 10))
-        title = pygame.font.SysFont("consolas", 36).render("Game Over", True, (230, 60, 60))
-        score_text = pygame.font.SysFont("consolas", 28).render(f"Final Score: {score}", True, (220, 220, 220))
+        title = pygame.font.SysFont("consolas", 36).render(
+            "Game Over", True, (230, 60, 60))
+        score_text = pygame.font.SysFont("consolas", 28).render(
+            f"Final Score: {score}", True, (220, 220, 220))
         w, h = self.screen.get_size()
         self.screen.blit(title, (w // 2 - title.get_width() // 2, h // 2 - 40))
-        self.screen.blit(score_text, (w // 2 - score_text.get_width() // 2, h // 2 + 10))
+        self.screen.blit(
+            score_text, (w // 2 - score_text.get_width() // 2, h // 2 + 10))

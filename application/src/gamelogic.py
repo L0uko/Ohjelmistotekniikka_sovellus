@@ -1,6 +1,6 @@
-import pygame
 import random
 import time
+import pygame
 import userinterface
 
 
@@ -172,6 +172,8 @@ class Map:
             else:
                 r -= 1
         return cleared
+
+
 class Clock:
     def __init__(self):
         self._clock = pygame.time.Clock()
@@ -182,8 +184,10 @@ class Clock:
     def get_ticks(self):
         return pygame.time.get_ticks()
 
+
 class CurrentPiece:
     """Tracks current falling tetromino."""
+
     def __init__(self, field: Map):
         self._field = field
         self.shape_index = 0
@@ -219,7 +223,6 @@ class CurrentPiece:
 
         # If can't place at spawn -> game over condition
         return self._field.can_place(self.block, self.top_r, self.left_c)
-
 
     def try_move(self, d_r, d_c):
         new_r = self.top_r + d_r
@@ -271,7 +274,8 @@ class Gameloop:
     def update_level_speed(self):
         # Basic leveling: every 10 lines, speed up by 10%
         self._level = max(1, 1 + self._lines_cleared // 10)
-        self._fall_interval_ms = max(120, int(800 * (0.9 ** (self._level - 1))))
+        self._fall_interval_ms = max(
+            120, int(800 * (0.9 ** (self._level - 1))))
 
     def handle_lock_and_new(self):
         # Lock current piece
@@ -282,7 +286,8 @@ class Gameloop:
             # Classic scoring (simplified)
             # Single=100, Double=300, Triple=500, Tetris=800, scaled by level
             base_scores = {1: 100, 2: 300, 3: 500, 4: 800}
-            self._score += base_scores.get(cleared, cleared * 100) * self._level
+            self._score += base_scores.get(cleared,
+                                           cleared * 100) * self._level
             self._lines_cleared += cleared
             self.update_level_speed()
         # Spawn next piece
@@ -326,9 +331,11 @@ class Gameloop:
         # Render static field
         self._ui.draw_grid(self._field)
         # Render current piece as overlay
-        self._ui.draw_piece(self._piece.block, self._piece.top_r, self._piece.left_c, self._piece.color)
+        self._ui.draw_piece(self._piece.block, self._piece.top_r,
+                            self._piece.left_c, self._piece.color)
         # HUD
-        self._ui.draw_hud(score=self._score, level=self._level, lines=self._lines_cleared)
+        self._ui.draw_hud(score=self._score, level=self._level,
+                          lines=self._lines_cleared)
         pygame.display.flip()
 
     def start(self):

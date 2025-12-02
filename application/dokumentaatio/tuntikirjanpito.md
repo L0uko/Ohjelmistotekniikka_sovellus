@@ -13,3 +13,5 @@ total == 17h
 
 viikko5
 - 2h palojen luominen
+- 3h refactorointi
+- 2h debug

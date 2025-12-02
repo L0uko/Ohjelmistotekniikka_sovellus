@@ -1,10 +1,9 @@
-import tkinter
 import gamelogic
 import userinterface
-import random
-#Muistiinpanot
+# Muistiinpanot
 # - merkitse ykkösellä liikkuvia paloja
 # - merkitse kakkosella paikallaan olevia paloja
+
 
 def main():
     # Standard Tetris board: 20 rows x 10 columns
@@ -20,5 +19,4 @@ if __name__ == "__main__":
     main()
 
 
-
-#window.mainloop()
+# window.mainloop()
