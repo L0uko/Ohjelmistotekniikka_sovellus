@@ -10,3 +10,8 @@
 - luokka kellolle (tickrate) on luotu
 - linter lisätty
 - autoformat on lisätty
+
+## Viikko 5
+- refaktoroitu käyttämään pygamea UI:ssa ja pelilogiikassa
+- refaktorointi tehty muokkaamalla alkuperäistä koodia copilotilla
+- peli on nyt toimiva suurimmalla osalla määrittelydokumentin toiminnoista
