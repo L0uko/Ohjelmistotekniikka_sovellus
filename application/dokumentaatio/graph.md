@@ -1,23 +1,23 @@
-### Tetris sequence diagram (simplified)
+### Tetris sequence diagram
 
 ```mermaid
 sequenceDiagram
     participant Main as main.py
-    participant Game as Gameloop
+    participant Game as Gameloop (gamelogic)
     participant Map as Map (gamelogic)
-    participant Piece as CurrentPiece
+    participant Piece as CurrentPiece (gamelogic)
     participant UI as UI (userinterface)
-    participant Clock as Clock
+    participant Clock as Clock (gamelogic)
     participant Pygame as pygame
 
     Main->>Game: start(field, ui)
-    Game->>Pygame: initialize
+    Game->>Pygame: pygame.init()
     Game->>Map: create field
     Game->>Piece: spawn()
 
     loop main loop (while running)
         Clock->>Game: tick()
-        Game->>Pygame: poll events
+        Game->>Pygame: pygame.event.get()
         Pygame-->>Game: events
 
         alt user input
