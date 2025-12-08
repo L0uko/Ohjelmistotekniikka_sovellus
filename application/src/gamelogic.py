@@ -175,6 +175,9 @@ class Map:
 
 
 class Clock:
+    """
+    Controls the ingame clock
+    """
     def __init__(self):
         self._clock = pygame.time.Clock()
 
@@ -187,6 +190,7 @@ class Clock:
 
 class CurrentPiece:
     """Tracks current falling tetromino."""
+
 
     def __init__(self, field: Map):
         self._field = field
@@ -256,6 +260,12 @@ class CurrentPiece:
 
 class Gameloop:
     def __init__(self, field: Map, ui: userinterface.UI):
+        """The main loop for the gameplay
+
+        Args:
+            field (Map): Map-type object
+            ui (userinterface.UI): The userinteface 
+        """        
         self._field = field
         self._ui = ui
         self._clock = Clock()
