@@ -10,5 +10,5 @@ Suunnitellut toiminnallisuudet:
  - tapa pyöritellä paloja DONE
  - pisteenlasku DONE
  - tapa nopeuttaa palojen putoamista DONE
- - (jos aikaa niin leaderboard)
+ - (jos aikaa niin tetrominopussit)
  - 

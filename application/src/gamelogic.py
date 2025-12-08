@@ -86,16 +86,6 @@ class Map:
     def color_for_index(self, idx):
         return self._colors[idx % len(self._colors)]
 
-    def return_map_str(self):
-        """ Returns map as a string """
-        _mapstring = str(self._map)
-        _mapstring = _mapstring.replace('], ', ']\n')
-        _mapstring = _mapstring.replace('[', "")
-        _mapstring = _mapstring.replace(']', "")
-        _mapstring = _mapstring.replace("'", "")
-        _mapstring = _mapstring.replace(',', " ")
-        return _mapstring
-
     # --- Grid helpers (remember: storage is map[col][row]) ---
 
     def in_bounds(self, r, c):
@@ -259,7 +249,7 @@ class CurrentPiece:
 
 
 class Gameloop:
-    def __init__(self, field: Map, ui: userinterface.UI):
+    def __init__(self, field: Map, ui=None):
         """The main loop for the gameplay
 
         Args:
