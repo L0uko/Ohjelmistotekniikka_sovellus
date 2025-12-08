@@ -23,5 +23,10 @@ def test(ctx):
     ctx.run("poetry run pytest ", pty=True)
 
 @task
+def lint(ctx):
+    ctx.run("poetry run pylint src/ ", pty=True)
+
+
+@task
 def format(ctx):
     ctx.run("poetry run autopep8 -v --in-place --recursive src")
