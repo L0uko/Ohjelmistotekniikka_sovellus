@@ -287,7 +287,7 @@ class CurrentPiece:
 
 
 class Gameloop:
-    def __init__(self, field: Map, ui=None):
+    def __init__(self, field: Map, ui: userinterface.UI):
         """The main loop for the gameplay
 
         Args:
@@ -311,7 +311,7 @@ class Gameloop:
 
     def update_level_speed(self):
         """Updates the tetromino drop speed.\n
-            every 10 lines, speed up by 10%
+        every 10 lines, speed up by 10%
         """        
         # Basic leveling: every 10 lines, speed up by 10%
         self._level = max(1, 1 + self._lines_cleared // 10)
@@ -337,6 +337,8 @@ class Gameloop:
             self._running = False
 
     def process_input(self):
+        """Goes through all of the possible inputs
+        """        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self._running = False
@@ -362,6 +364,7 @@ class Gameloop:
                     self._last_fall_tick = self._clock.get_ticks()
 
     def gravity_step(self, now_ticks):
+        """ Makes the gravity working """
         if now_ticks - self._last_fall_tick >= self._fall_interval_ms:
             moved = self._piece.try_move(1, 0)
             if not moved:
@@ -380,6 +383,8 @@ class Gameloop:
         pygame.display.flip()
 
     def start(self):
+        """Initialises pygame and has the gameloop
+        """        
         pygame.init()
         self._ui.init_window(self._field.columns(), self._field.rows())
 
@@ -393,10 +398,10 @@ class Gameloop:
             self._clock.tick(60)  # limit to 60 FPS
             self.process_input()
             self.gravity_step(self._clock.get_ticks())
-            self.draw()
+            self.userinterface.draw()
 
         # Game over screen
         self._ui.draw_game_over(self._score)
         pygame.display.flip()
         # Pause briefly then exit
-        time.sleep(2)
+        time.sleep(1)
