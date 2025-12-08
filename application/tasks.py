@@ -26,6 +26,11 @@ def test(ctx):
 def lint(ctx):
     ctx.run("poetry run pylint src/ ", pty=True)
 
+@task
+def build(ctx):
+    ctx.run("poetry install", pty=True)
+
+
 
 @task
 def format(ctx):
