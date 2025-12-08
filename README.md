@@ -4,7 +4,7 @@ Sovelluksella voidaan pelata klassista Tetristä. Sovellus on tehty Pythonilla j
 
 ## Dokumentaatio
  - [Vaatimusmäärittely](application/dokumentaatio/maarittelydokumentti.md)
- - [Arkkitehtuurikuvaus]()
+ - [Arkkitehtuurikuvaus](application/dokumentaatio/graph.md)
  - [Tuntikirjanpito](application/dokumentaatio/tuntikirjanpito.md)
  - [Changelog](application/dokumentaatio/changelog.md)
 
