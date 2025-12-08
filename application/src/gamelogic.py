@@ -6,6 +6,12 @@ import userinterface
 
 class Map:
     def __init__(self, rows, columns):
+        """Makes the map object
+
+        Args:
+            rows (int): amount of rows
+            columns (int): amount of columns
+        """
         self._map = []
         self._rows = rows
         self._columns = columns
@@ -58,7 +64,6 @@ class Map:
             self._block_l
         ]
 
-        # Colors per shape index (I,O,T,S,Z,J,L)
         self._colors = [
             (0, 255, 255),  # I
             (255, 255, 0),  # O
@@ -67,12 +72,15 @@ class Map:
             (255, 0, 0),    # Z
             (0, 0, 255),    # J
             (255, 165, 0),  # L
-        ]
+        ] 
+        """ Colors per shape index (I,O,T,S,Z,J,L) """
 
     def rows(self):
+        """ return amount of rows int """
         return self._rows
 
     def columns(self):
+        """ returns amount of columns int """
         return self._columns
 
     def return_map(self):
@@ -84,15 +92,18 @@ class Map:
         return self._possible_blocks
 
     def color_for_index(self, idx):
+        """ returns color from the wanted index"""
         return self._colors[idx % len(self._colors)]
 
     # --- Grid helpers (remember: storage is map[col][row]) ---
 
     def in_bounds(self, r, c):
+        """ checks if in bounds """
         return 0 <= r < self._rows and 0 <= c < self._columns
 
-    def get_cell(self, r, c):
-        return self._map[c][r]
+    def get_cell(self, row, column):
+        """ Returns the content of the wanted cell """
+        return self._map[column][row]
 
     def set_cell(self, r, c, val):
         self._map[c][r] = val
@@ -180,8 +191,6 @@ class Clock:
 
 class CurrentPiece:
     """Tracks current falling tetromino."""
-
-
     def __init__(self, field: Map):
         self._field = field
         self.shape_index = 0
@@ -191,6 +200,15 @@ class CurrentPiece:
         self.color = (255, 255, 255)
 
     def spawn(self, shape_index=None):
+        """spawns a random tetromino or a from a chosen index
+
+        Args:
+            shape_index (int, optional): index of the tetromino. Defaults to None.
+
+        Returns:
+            Bool: True if placed \n
+            False if not placed
+        """        
         blocks = self._field.return_block_list()
         # If caller provides shape_index, use it; otherwise random
         if shape_index is None:
@@ -219,6 +237,16 @@ class CurrentPiece:
         return self._field.can_place(self.block, self.top_r, self.left_c)
 
     def try_move(self, d_r, d_c):
+        """Moves the current piece the amount of rows and columns specified
+
+        Args:
+            d_r (int): amount of rows moved
+            d_c (int): amount of columns moved
+
+        Returns:
+            Bool: True if placed \n
+            False if not placed
+        """        
         new_r = self.top_r + d_r
         new_c = self.left_c + d_c
         if self._field.can_place(self.block, new_r, new_c):
@@ -228,6 +256,12 @@ class CurrentPiece:
         return False
 
     def try_rotate(self):
+        """Tries to rotates the tetromino clockwise
+
+        Returns:
+            Bool: True if placed \n
+            False if not placed
+        """        
         rotated = self._field.rotate_block(self.block)
         # Wall-kick attempts (simple): try same col, then +/-1 shift
         for kick in [(0, 0), (0, -1), (0, 1), (0, -2), (0, 2)]:
@@ -241,10 +275,14 @@ class CurrentPiece:
         return False
 
     def hard_drop(self):
+        """Does a hard drop
+        """        
         while self.try_move(1, 0):
             pass
 
     def lock_to_field(self):
+        """Moves the current piece to a static piece
+        """        
         self._field.lock_piece(self.block, self.top_r, self.left_c, self.color)
 
 
@@ -272,6 +310,9 @@ class Gameloop:
         self._last_fall_tick = 0
 
     def update_level_speed(self):
+        """Updates the tetromino drop speed.\n
+            every 10 lines, speed up by 10%
+        """        
         # Basic leveling: every 10 lines, speed up by 10%
         self._level = max(1, 1 + self._lines_cleared // 10)
         self._fall_interval_ms = max(
