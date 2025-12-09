@@ -22,6 +22,8 @@ Muut invoke komennot löytää komennolla
 ```bash
 poetry run invoke list
 ```
+Tetrominoja liikutetaan nuolinäppäimilä ja pyöritetään "nuoli ylös" näppäimellä. Kovaan pudotukseen painetaan välilyöntiä.
+
 ##Pytesteistä:
 En löytänyt mitään tietoa miten tehdä unittestejä pygamella tehtyyn tickellä toimivaan peliin. 
 Alkutilanteen voi tarkistaa, mutta siitä eteenpäin se on lähes mahdotonta. Pahoittelen testien puutetta ja toivon että se otetaan huomioon pisteytyksessä
