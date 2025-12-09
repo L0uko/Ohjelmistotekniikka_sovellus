@@ -339,7 +339,8 @@ class Gameloop:
             self._running = False
 
     def process_input(self):
-        """Goes through all of the possible inputs"""
+        """Goes through all of the possible inputs
+        Ignore the pygame errors, it still works and I have no idea why they appear"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self._running = False
@@ -365,7 +366,7 @@ class Gameloop:
                     self._last_fall_tick = self._clock.get_ticks()
 
     def gravity_step(self, now_ticks):
-        """ Makes the gravity working """
+        """ Makes the gravity working"""
         if now_ticks - self._last_fall_tick >= self._fall_interval_ms:
             moved = self._piece.try_move(1, 0)
             if not moved:

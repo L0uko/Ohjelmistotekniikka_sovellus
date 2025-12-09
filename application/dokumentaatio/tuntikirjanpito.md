@@ -15,3 +15,10 @@ viikko5
 - 2h palojen luominen
 - 3h refactorointi
 - 2h debug
+
+viikko6 
+- 4h docstringit ja kommentit
+- 1h readme päivitys
+- 3h unittestien toteuttamisen yritys käynnissä olevaan peliin
+- 1h vertaisarviointi
+total == 9h
