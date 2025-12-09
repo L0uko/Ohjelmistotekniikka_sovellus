@@ -1,0 +1,1 @@
+Sovellus on alunperin kirjoitettu käsin viikkoon 5 asti. Sen jälkeen vaihdoin tkinteristä pygameen ja samalla refactoroin koko koodipohjan antamalla siihen asti luodun koodin promptissa. Alkuperäinen koodi on siis itse kirjoitettua ja tekoäly on vain jatkanut samalla tyylillä.
