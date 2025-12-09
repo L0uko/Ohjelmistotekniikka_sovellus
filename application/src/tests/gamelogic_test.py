@@ -1,5 +1,7 @@
 import unittest
 import gamelogic
+
+
 class TestMap(unittest.TestCase):
     def setUp(self):
         self.field = gamelogic.Map(10, 20)
@@ -37,4 +39,3 @@ class TestMap(unittest.TestCase):
     def test_spawn_l(self):
         self.current_piece = gamelogic.CurrentPiece(self.field)
         self.assertEqual(self.current_piece.spawn(6), True)
-

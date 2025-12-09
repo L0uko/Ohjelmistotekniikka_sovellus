@@ -1,8 +1,5 @@
 import gamelogic
 import userinterface
-# Muistiinpanot
-# - merkitse ykkösellä liikkuvia paloja
-# - merkitse kakkosella paikallaan olevia paloja
 
 
 def main():
@@ -17,6 +14,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# window.mainloop()

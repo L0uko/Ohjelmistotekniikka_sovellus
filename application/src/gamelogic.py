@@ -72,7 +72,7 @@ class Map:
             (255, 0, 0),    # Z
             (0, 0, 255),    # J
             (255, 165, 0),  # L
-        ] 
+        ]
         """ Colors per shape index (I,O,T,S,Z,J,L) """
 
     def rows(self):
@@ -179,6 +179,7 @@ class Clock:
     """
     Controls the ingame clock
     """
+
     def __init__(self):
         self._clock = pygame.time.Clock()
 
@@ -191,6 +192,7 @@ class Clock:
 
 class CurrentPiece:
     """Tracks current falling tetromino."""
+
     def __init__(self, field: Map):
         self._field = field
         self.shape_index = 0
@@ -208,7 +210,7 @@ class CurrentPiece:
         Returns:
             Bool: True if placed \n
             False if not placed
-        """        
+        """
         blocks = self._field.return_block_list()
         # If caller provides shape_index, use it; otherwise random
         if shape_index is None:
@@ -246,7 +248,7 @@ class CurrentPiece:
         Returns:
             Bool: True if placed \n
             False if not placed
-        """        
+        """
         new_r = self.top_r + d_r
         new_c = self.left_c + d_c
         if self._field.can_place(self.block, new_r, new_c):
@@ -261,7 +263,7 @@ class CurrentPiece:
         Returns:
             Bool: True if placed \n
             False if not placed
-        """        
+        """
         rotated = self._field.rotate_block(self.block)
         # Wall-kick attempts (simple): try same col, then +/-1 shift
         for kick in [(0, 0), (0, -1), (0, 1), (0, -2), (0, 2)]:
@@ -276,13 +278,13 @@ class CurrentPiece:
 
     def hard_drop(self):
         """Does a hard drop
-        """        
+        """
         while self.try_move(1, 0):
             pass
 
     def lock_to_field(self):
         """Moves the current piece to a static piece
-        """        
+        """
         self._field.lock_piece(self.block, self.top_r, self.left_c, self.color)
 
 
@@ -292,8 +294,8 @@ class Gameloop:
 
         Args:
             field (Map): Map-type object
-            ui (userinterface.UI): The userinteface 
-        """        
+            ui (): The userinteface 
+        """
         self._field = field
         self._ui = ui
         self._clock = Clock()
@@ -312,7 +314,7 @@ class Gameloop:
     def update_level_speed(self):
         """Updates the tetromino drop speed.\n
         every 10 lines, speed up by 10%
-        """        
+        """
         # Basic leveling: every 10 lines, speed up by 10%
         self._level = max(1, 1 + self._lines_cleared // 10)
         self._fall_interval_ms = max(
@@ -337,8 +339,7 @@ class Gameloop:
             self._running = False
 
     def process_input(self):
-        """Goes through all of the possible inputs
-        """        
+        """Goes through all of the possible inputs"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self._running = False
@@ -383,8 +384,7 @@ class Gameloop:
         pygame.display.flip()
 
     def start(self):
-        """Initialises pygame and has the gameloop
-        """        
+        """Initialises pygame and has the gameloop"""
         pygame.init()
         self._ui.init_window(self._field.columns(), self._field.rows())
 
@@ -398,7 +398,7 @@ class Gameloop:
             self._clock.tick(60)  # limit to 60 FPS
             self.process_input()
             self.gravity_step(self._clock.get_ticks())
-            self.userinterface.draw()
+            self.draw()
 
         # Game over screen
         self._ui.draw_game_over(self._score)
