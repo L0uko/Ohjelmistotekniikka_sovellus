@@ -1,6 +1,6 @@
 
  # Ohjelmistotekniikan Tetris projekti
-Sovelluksella voidaan pelata klassista Tetristä. Sovellus on tehty Pythonilla ja tKinterillä
+Sovelluksella voidaan pelata klassista Tetristä. Sovellus on tehty Pythonilla ja pygamella
 
 ## Dokumentaatio
  - [Vaatimusmäärittely](application/dokumentaatio/maarittelydokumentti.md)
@@ -20,7 +20,7 @@ poetry run invoke start
 ```
 Muut invoke komennot löytää komennolla
 ```bash
-poetry run invoke list
+poetry run invoke --list
 ```
 Tetrominoja liikutetaan nuolinäppäimilä ja pyöritetään "nuoli ylös" näppäimellä. Kovaan pudotukseen painetaan välilyöntiä.
 
