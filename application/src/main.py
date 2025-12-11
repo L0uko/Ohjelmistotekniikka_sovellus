@@ -8,8 +8,9 @@ def main():
     columns = 10
     field = gamelogic.Map(rows, columns)
     ui = userinterface.UI(cell_size=30)  # 30px per cell
-    game = gamelogic.Gameloop(field, ui)
-    game.start()
+    game = gamelogic.Game(field, ui)
+    gameplay = gamelogic.Loop(field, ui,game)
+    gameplay.start()
 
 
 if __name__ == "__main__":

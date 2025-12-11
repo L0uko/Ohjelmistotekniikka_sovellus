@@ -289,7 +289,7 @@ class CurrentPiece:
         self._field.lock_piece(self.block, self.top_r, self.left_c, self.color)
 
 
-class Gameloop:
+class Game:
     def __init__(self, field: Map, ui: userinterface.UI):
         """The main loop for the gameplay
 
@@ -299,8 +299,7 @@ class Gameloop:
         """
         self._field = field
         self._ui = ui
-        self._clock = Clock()
-        self._running = True
+
 
         # Game state
         self._piece = CurrentPiece(self._field)
@@ -385,6 +384,30 @@ class Gameloop:
                           lines=self._lines_cleared)
         pygame.display.flip()
 
+class Loop:
+    def __init__(self, field: Map, ui: userinterface.UI, game: Game):
+        """The main loop for the gameplay
+
+        Args:
+            field (Map): Map-type object
+            ui (): The userinteface 
+        """
+        self._game = game
+        self._field = field
+        self._ui = ui
+        self._clock = Clock()
+        self._running = True
+
+        # Game state
+        self._piece = CurrentPiece(self._field)
+        self._score = 0
+        self._level = 1
+        self._lines_cleared = 0
+
+        # Timers
+        self._fall_interval_ms = 800  # base fall speed
+        self._last_fall_tick = 0
+
     def start(self):
         """Initialises pygame and has the gameloop"""
         pygame.init()
@@ -398,9 +421,9 @@ class Gameloop:
 
         while self._running:
             self._clock.tick(60)  # limit to 60 FPS
-            self.process_input()
-            self.gravity_step(self._clock.get_ticks())
-            self.draw()
+            self._game.process_input()
+            self._game.gravity_step(self._clock.get_ticks())
+            self._game.draw()
 
         # Game over screen
         self._ui.draw_game_over(self._score)

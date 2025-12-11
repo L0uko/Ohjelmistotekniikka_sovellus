@@ -26,8 +26,9 @@ sequenceDiagram
 
     loop main loop (while running)
         Clock->>Game: tick()
-        Game->>Pygame: pygame.event.get()
-        Pygame-->>Game: events
+        Game->>Game: process_input()
+        Game->>Game: gravity_step() 
+        Game->>Game: draw()
 
         alt user input
             Game->>Piece: move / rotate / drop
