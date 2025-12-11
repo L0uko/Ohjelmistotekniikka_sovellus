@@ -12,29 +12,29 @@ class TestMap(unittest.TestCase):
             self.assertEqual(len(row), 10)
 
     def test_spawn_i(self):
-        self.current_piece = gamelogic.CurrentPiece(self.field)
-        self.assertEqual(self.current_piece.spawn(0), True)
+        self._current_piece = gamelogic.CurrentPiece(self.field)
+        self.assertEqual(self._current_piece.spawn(0), True)
 
     def test_spawn_o(self):
-        self.current_piece = gamelogic.CurrentPiece(self.field)
-        self.assertEqual(self.current_piece.spawn(1), True)
+        self._current_piece = gamelogic.CurrentPiece(self.field)
+        self.assertEqual(self._current_piece.spawn(1), True)
 
     def test_spawn_t(self):
-        self.current_piece = gamelogic.CurrentPiece(self.field)
-        self.assertEqual(self.current_piece.spawn(2), True)
+        self._current_piece = gamelogic.CurrentPiece(self.field)
+        self.assertEqual(self._current_piece.spawn(2), True)
 
     def test_spawn_s(self):
-        self.current_piece = gamelogic.CurrentPiece(self.field)
-        self.assertEqual(self.current_piece.spawn(3), True)
+        self._current_piece = gamelogic.CurrentPiece(self.field)
+        self.assertEqual(self._current_piece.spawn(3), True)
 
     def test_spawn_z(self):
-        self.current_piece = gamelogic.CurrentPiece(self.field)
-        self.assertEqual(self.current_piece.spawn(4), True)
+        self._current_piece = gamelogic.CurrentPiece(self.field)
+        self.assertEqual(self._current_piece.spawn(4), True)
 
     def test_spawn_j(self):
-        self.current_piece = gamelogic.CurrentPiece(self.field)
-        self.assertEqual(self.current_piece.spawn(5), True)
+        self._current_piece = gamelogic.CurrentPiece(self.field)
+        self.assertEqual(self._current_piece.spawn(5), True)
 
     def test_spawn_l(self):
-        self.current_piece = gamelogic.CurrentPiece(self.field)
-        self.assertEqual(self.current_piece.spawn(6), True)
+        self._current_piece = gamelogic.CurrentPiece(self.field)
+        self.assertEqual(self._current_piece.spawn(6), True)

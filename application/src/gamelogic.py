@@ -91,6 +91,7 @@ class Map:
         """ Returns blocklist in order I O T S Z J L """
         return self._possible_blocks
     # Copilot code starts from here
+
     def color_for_index(self, idx):
         """ returns color from the wanted index"""
         return self._colors[idx % len(self._colors)]
