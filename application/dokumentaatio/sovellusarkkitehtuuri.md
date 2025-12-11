@@ -7,7 +7,3 @@ Koodi on jaettu kolmeen tiedostoon:
 - gamelogic.py, mikä sisältää pelin logiikan, kuten pelisilmukan, pelialueen ja palikoiden käsittelyn.
 - userinterface.py hoitaa kentän ja palikoiden piirtämisen.
 
-
-```mermaid
-
-```
