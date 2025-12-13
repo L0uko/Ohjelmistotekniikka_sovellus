@@ -118,15 +118,15 @@ class Map:
 
     def can_place(self, block, top_r, left_c):
         """Check if block fits with no collision at (top_r, left_c)."""
-        for i_r, row in enumerate(block):
-            for i_c, v in enumerate(row):
-                if v == 0:
+        for index_row, row in enumerate(block):
+            for index_column, value in enumerate(row):
+                if value == 0:
                     continue
-                r = top_r + i_r
-                c = left_c + i_c
-                if not self.in_bounds(r, c):
+                new_row = top_r + index_row
+                new_column = left_c + index_column
+                if not self.in_bounds(new_row, new_column):
                     return False
-                if self.get_cell(r, c) != 0:
+                if self.get_cell(new_row, new_column) != 0:
                     return False
         return True
 
@@ -190,7 +190,11 @@ class Clock:
     def get_ticks(self):
         return pygame.time.get_ticks()
 
-
+class Tetromino:
+    """Class for falling tetrominos
+    """
+    def __init__(self):
+        pass
 class CurrentPiece:
     """Tracks current falling tetromino."""
 
