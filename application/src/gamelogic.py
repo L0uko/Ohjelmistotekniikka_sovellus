@@ -109,43 +109,7 @@ class Map:
     def set_cell(self, r, c, val):
         self._map[c][r] = val
 
-    # --- Piece operations ---
 
-    def rotate_block(self, block):
-        """Rotate block matrix clockwise."""
-        # Transpose and reverse rows
-        return [list(reversed(col)) for col in zip(*block)]
-
-    def can_place(self, block, top_r, left_c):
-        """Check if block fits with no collision at (top_r, left_c)."""
-        for index_row, row in enumerate(block):
-            for index_column, value in enumerate(row):
-                if value == 0:
-                    continue
-                new_row = top_r + index_row
-                new_column = left_c + index_column
-                if not self.in_bounds(new_row, new_column):
-                    return False
-                if self.get_cell(new_row, new_column) != 0:
-                    return False
-        return True
-
-    def place_block(self, block, top_r, left_c, val):
-        """Write block cells to grid with value val (color or 1)."""
-        for i_r, row in enumerate(block):
-            for i_c, v in enumerate(row):
-                if v == 1:
-                    self.set_cell(top_r + i_r, left_c + i_c, val)
-
-    def clear_block(self, block, top_r, left_c):
-        """Erase block from grid (useful for preview ghosts)."""
-        for i_r, row in enumerate(block):
-            for i_c, v in enumerate(row):
-                if v == 1:
-                    r = top_r + i_r
-                    c = left_c + i_c
-                    if self.in_bounds(r, c) and self.get_cell(r, c) != 0:
-                        self.set_cell(r, c, 0)
 
     def lock_piece(self, block, top_r, left_c, color_value):
         """Permanently write piece with color_value to grid."""
@@ -195,16 +159,16 @@ class Tetromino:
     """
     def __init__(self):
         pass
-class CurrentPiece:
+class Tetromino:
     """Tracks current falling tetromino."""
 
     def __init__(self, field: Map):
         self._field = field
-        self.shape_index = 0
-        self.block = None
-        self.top_r = 0
-        self.left_c = 0
-        self.color = (255, 255, 255)
+        self._shape_index = 0
+        self._block = None
+        self._top_row = 0
+        self._left_column = 0
+        self._color = (255, 255, 255)
 
     def spawn(self, shape_index=None):
         """spawns a random tetromino or a from a chosen index
@@ -219,31 +183,70 @@ class CurrentPiece:
         blocks = self._field.return_block_list()
         # If caller provides shape_index, use it; otherwise random
         if shape_index is None:
-            self.shape_index = random.randint(0, len(blocks) - 1)
+            self._shape_index = random.randint(0, len(blocks) - 1)
         else:
             # Clamp to valid range
-            self.shape_index = max(0, min(shape_index, len(blocks) - 1))
+            self._shape_index = max(0, min(shape_index, len(blocks) - 1))
 
-        base = blocks[self.shape_index]
+        base = blocks[self._shape_index]
 
         # Random rotation to add variety
         rot_count = random.randint(0, 3)
         b = base
         for _ in range(rot_count):
-            b = self._field.rotate_block(b)
+            b = self.rotate_block(b)
 
-        self.block = b
-        self.color = self._field.color_for_index(self.shape_index)
+        self._block = b
+        self._color = self._field.color_for_index(self._shape_index)
 
         # Center horizontally
-        width = len(self.block[0])
-        self.left_c = (self._field.columns() - width) // 2
-        self.top_r = 0
+        width = len(self._block[0])
+        self._left_column = (self._field.columns() - width) // 2
+        self._top_row = 0
 
         # If can't place at spawn -> game over condition
-        return self._field.can_place(self.block, self.top_r, self.left_c)
+        return self.can_place(self._block, self._top_row, self._left_column)
 
-    def try_move(self, d_r, d_c):
+    # --- Piece operations ---
+
+    def rotate_block(self):
+        """Rotate block matrix clockwise."""
+        # Transpose and reverse rows
+        return [list(reversed(col)) for col in zip(*self._block)]
+
+    def can_place(self, block, top_row, left_column):
+        """Check if block fits with no collision at (top_r, left_c)."""
+        print(f"Print block {block}")
+        for index_row, row in enumerate(block):
+            for index_column, value in enumerate(row):
+                if value == 0:
+                    continue
+                new_row = top_row + index_row
+                new_column = left_column + index_column
+                if not self._field.in_bounds(new_row, new_column):
+                    return False
+                if self._field.get_cell(new_row, new_column) != 0:
+                    return False
+        return True
+
+    def place_block(self, block, top_r, left_c, val):
+        """Write block cells to grid with value val (color or 1)."""
+        for i_r, row in enumerate(block):
+            for i_c, v in enumerate(row):
+                if v == 1:
+                    self.set_cell(top_r + i_r, left_c + i_c, val)
+
+    def clear_block(self, block, top_r, left_c):
+        """Erase block from grid (useful for preview ghosts)."""
+        for i_r, row in enumerate(block):
+            for i_c, v in enumerate(row):
+                if v == 1:
+                    r = top_r + i_r
+                    c = left_c + i_c
+                    if self.in_bounds(r, c) and self.get_cell(r, c) != 0:
+                        self.set_cell(r, c, 0)
+
+    def try_move(self, amount_of_rows, amount_of_columns):
         """Moves the current piece the amount of rows and columns specified
 
         Args:
@@ -254,11 +257,11 @@ class CurrentPiece:
             Bool: True if placed \n
             False if not placed
         """
-        new_r = self.top_r + d_r
-        new_c = self.left_c + d_c
-        if self._field.can_place(self.block, new_r, new_c):
-            self.top_r = new_r
-            self.left_c = new_c
+        new_row = self._top_row + amount_of_rows
+        new_column = self._left_column + amount_of_columns
+        if self.can_place(self._block, new_row, new_column):
+            self._top_row = new_row
+            self._left_column = new_column
             return True
         return False
 
@@ -269,15 +272,15 @@ class CurrentPiece:
             Bool: True if placed \n
             False if not placed
         """
-        rotated = self._field.rotate_block(self.block)
+        rotated = self.rotate_block(self._block)
         # Wall-kick attempts (simple): try same col, then +/-1 shift
         for kick in [(0, 0), (0, -1), (0, 1), (0, -2), (0, 2)]:
-            nr = self.top_r + kick[0]
-            nc = self.left_c + kick[1]
-            if self._field.can_place(rotated, nr, nc):
-                self.block = rotated
-                self.top_r = nr
-                self.left_c = nc
+            nr = self._top_row + kick[0]
+            nc = self._left_column + kick[1]
+            if self.can_place(rotated, nr, nc):
+                self._block = rotated
+                self._top_row = nr
+                self._left_column = nc
                 return True
         return False
 
@@ -290,12 +293,12 @@ class CurrentPiece:
     def lock_to_field(self):
         """Moves the current piece to a static piece
         """
-        self._field.lock_piece(self.block, self.top_r, self.left_c, self.color)
+        self._field.lock_piece(self._block, self._top_row, self._left_column, self._color)
 
 
 class Game:
     def __init__(self, field: Map, ui: userinterface.UI):
-        """The main loop for the gameplay
+        """Game object that has functions
 
         Args:
             field (Map): Map-type object
@@ -303,24 +306,25 @@ class Game:
         """
         self._field = field
         self._ui = ui
+        self._clock = Clock()
+        self._last_fall_tick = 0
+        self._fall_interval_ms = 800  # base fall speed
+
 
 
         # Game state
-        self._piece = CurrentPiece(self._field)
-        self._score = 0
+        self._piece = Tetromino(self._field)
         self._level = 1
         self._lines_cleared = 0
+        self._score = 0
 
-        # Timers
-        self._fall_interval_ms = 800  # base fall speed
-        self._last_fall_tick = 0
 
     def update_level_speed(self):
         """Updates the tetromino drop speed.\n
         every 10 lines, speed up by 10%
         """
         # Basic leveling: every 10 lines, speed up by 10%
-        self._level = max(1, 1 + self._lines_cleared // 10)
+        self._level = max(1, 1 + self._lines_cleared // 10) ###CHANGE TO 5 LINES
         self._fall_interval_ms = max(
             120, int(800 * (0.9 ** (self._level - 1))))
 
@@ -381,8 +385,8 @@ class Game:
         # Render static field
         self._ui.draw_grid(self._field)
         # Render current piece as overlay
-        self._ui.draw_piece(self._piece.block, self._piece.top_r,
-                            self._piece.left_c, self._piece.color)
+        self._ui.draw_piece(self._piece._block, self._piece._top_row,
+                            self._piece._left_column, self._piece._color)
         # HUD
         self._ui.draw_hud(score=self._score, level=self._level,
                           lines=self._lines_cleared)
@@ -399,18 +403,12 @@ class Loop:
         self._game = game
         self._field = field
         self._ui = ui
-        self._clock = Clock()
         self._running = True
 
         # Game state
-        self._piece = CurrentPiece(self._field)
-        self._score = 0
-        self._level = 1
-        self._lines_cleared = 0
+
 
         # Timers
-        self._fall_interval_ms = 800  # base fall speed
-        self._last_fall_tick = 0
 
     def start(self):
         """Initialises pygame and has the gameloop"""
@@ -418,19 +416,17 @@ class Loop:
         self._ui.init_window(self._field.columns(), self._field.rows())
 
         # Initial piece
-        if not self._piece.spawn():
+        if not self._game._piece.spawn():
             self._running = False
 
-        self._last_fall_tick = self._clock.get_ticks()
-
         while self._running:
-            self._clock.tick(60)  # limit to 60 FPS
+            self._game._clock.tick(60)  # limit to 60 FPS
             self._game.process_input()
-            self._game.gravity_step(self._clock.get_ticks())
+            self._game.gravity_step(self._game._clock.get_ticks())
             self._game.draw()
 
         # Game over screen
-        self._ui.draw_game_over(self._score)
+        self._ui.draw_game_over(self._game._score)
         pygame.display.flip()
         # Pause briefly then exit
         time.sleep(1)
