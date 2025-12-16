@@ -149,9 +149,13 @@ class Clock:
         return pygame.time.get_ticks()
 
 class Tetromino:
-    """Tracks current falling tetromino."""
 
     def __init__(self, field: Map):
+        """Controls the current falling Tetromino
+
+        Args:
+            field (Map): Input the map
+        """
         self._field = field
         self._shape_index = 0
         self._block = None
@@ -159,7 +163,7 @@ class Tetromino:
         self._left_column = 0
         self._color = (255, 255, 255)
 
-    def spawn(self):
+    def spawn(self, shape_index=None):
         """spawns a random tetromino or a from a chosen index
 
         Args:
@@ -171,18 +175,17 @@ class Tetromino:
         """
         blocks = self._field.return_block_list()
         # If caller provides shape_index, use it; otherwise random
-        #if shape_index is None:
-        self._shape_index = random.randint(0, len(blocks) - 1)
-        #else:
+        if shape_index is None:
+            self._shape_index = random.randint(0, len(blocks) - 1)
+        else:
             # Clamp to valid range
-        #    self._shape_index = max(0, min(shape_index, len(blocks) - 1))
+            self._shape_index = max(0, min(shape_index, len(blocks) - 1))
 
         base = blocks[self._shape_index]
 
         # Random rotation to add variety
         rot_count = random.randint(0, 3)
         self._block = base
-        print("b value", self._block)
         for _ in range(rot_count):
             self._block = self.rotate_block()
 
@@ -205,7 +208,6 @@ class Tetromino:
 
     def can_place(self, block, top_row, left_column):
         """Check if block fits with no collision at (top_r, left_c)."""
-        print(f"Print block {block}")
         for index_row, row in enumerate(block):
             for index_column, value in enumerate(row):
                 if value == 0:
@@ -302,7 +304,7 @@ class Game:
         self._clock = Clock()
         self._last_fall_tick = 0
         self._fall_interval_ms = 800  # base fall speed
-
+        self.running = True
 
 
         # Game state
@@ -311,6 +313,8 @@ class Game:
         self._lines_cleared = 0
         self._score = 0
 
+    def check_if_running(self):
+        return self.running
 
     def update_level_speed(self):
         """Updates the tetromino drop speed.\n
@@ -398,11 +402,6 @@ class Loop:
         self._ui = game._ui
         self.running = True
 
-        # Game state
-
-
-        # Timers
-
     def start(self):
         """Initialises pygame and has the gameloop"""
         pygame.init()
@@ -413,11 +412,11 @@ class Loop:
             self.running = False
 
         while self.running:
-            print(self.running)
             self._game._clock.tick(60)  # limit to 60 FPS
             self._game.process_input()
             self._game.gravity_step(self._game._clock.get_ticks())
             self._game.draw()
+            self.running = self._game.check_if_running()
 
 
         # Game over screen
