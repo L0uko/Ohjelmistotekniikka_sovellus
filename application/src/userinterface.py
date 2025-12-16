@@ -1,6 +1,4 @@
 import pygame
-
-
 class UI:
     def __init__(self, cell_size=30):
         self.cell_size = cell_size
