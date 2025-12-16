@@ -109,12 +109,6 @@ class Map:
     def set_cell(self, r, c, val):
         self._map[c][r] = val
 
-
-
-    def lock_piece(self, block, top_r, left_c, color_value):
-        """Permanently write piece with color_value to grid."""
-        self.place_block(block, top_r, left_c, color_value)
-
     def clear_full_lines(self):
         """Clear full lines and collapse above."""
         cleared = 0
@@ -155,11 +149,6 @@ class Clock:
         return pygame.time.get_ticks()
 
 class Tetromino:
-    """Class for falling tetrominos
-    """
-    def __init__(self):
-        pass
-class Tetromino:
     """Tracks current falling tetromino."""
 
     def __init__(self, field: Map):
@@ -170,7 +159,7 @@ class Tetromino:
         self._left_column = 0
         self._color = (255, 255, 255)
 
-    def spawn(self, shape_index=None):
+    def spawn(self):
         """spawns a random tetromino or a from a chosen index
 
         Args:
@@ -182,21 +171,21 @@ class Tetromino:
         """
         blocks = self._field.return_block_list()
         # If caller provides shape_index, use it; otherwise random
-        if shape_index is None:
-            self._shape_index = random.randint(0, len(blocks) - 1)
-        else:
+        #if shape_index is None:
+        self._shape_index = random.randint(0, len(blocks) - 1)
+        #else:
             # Clamp to valid range
-            self._shape_index = max(0, min(shape_index, len(blocks) - 1))
+        #    self._shape_index = max(0, min(shape_index, len(blocks) - 1))
 
         base = blocks[self._shape_index]
 
         # Random rotation to add variety
         rot_count = random.randint(0, 3)
-        b = base
+        self._block = base
+        print("b value", self._block)
         for _ in range(rot_count):
-            b = self.rotate_block(b)
+            self._block = self.rotate_block()
 
-        self._block = b
         self._color = self._field.color_for_index(self._shape_index)
 
         # Center horizontally
@@ -228,13 +217,6 @@ class Tetromino:
                 if self._field.get_cell(new_row, new_column) != 0:
                     return False
         return True
-
-    def place_block(self, block, top_r, left_c, val):
-        """Write block cells to grid with value val (color or 1)."""
-        for i_r, row in enumerate(block):
-            for i_c, v in enumerate(row):
-                if v == 1:
-                    self.set_cell(top_r + i_r, left_c + i_c, val)
 
     def clear_block(self, block, top_r, left_c):
         """Erase block from grid (useful for preview ghosts)."""
@@ -272,7 +254,7 @@ class Tetromino:
             Bool: True if placed \n
             False if not placed
         """
-        rotated = self.rotate_block(self._block)
+        rotated = self.rotate_block()
         # Wall-kick attempts (simple): try same col, then +/-1 shift
         for kick in [(0, 0), (0, -1), (0, 1), (0, -2), (0, 2)]:
             nr = self._top_row + kick[0]
@@ -290,10 +272,21 @@ class Tetromino:
         while self.try_move(1, 0):
             pass
 
+    def place_block(self, block, top_r, left_c, val):
+        """Write block cells to grid with value val (color or 1)."""
+        for i_r, row in enumerate(block):
+            for i_c, v in enumerate(row):
+                if v == 1:
+                    self._field.set_cell(top_r + i_r, left_c + i_c, val)
+
+    def lock_piece(self, block, top_r, left_c, color_value):
+        """Permanently write piece with color_value to grid."""
+        self.place_block(block, top_r, left_c, color_value)
+
     def lock_to_field(self):
         """Moves the current piece to a static piece
         """
-        self._field.lock_piece(self._block, self._top_row, self._left_column, self._color)
+        self.lock_piece(self._block, self._top_row, self._left_column, self._color)
 
 
 class Game:
@@ -344,17 +337,17 @@ class Game:
         # Spawn next piece
         if not self._piece.spawn():
             # Game over
-            self._running = False
+            self.running = False
 
     def process_input(self):
         """Goes through all of the possible inputs
         Ignore the pygame errors, it still works and I have no idea why they appear"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self._running = False
+                self.running = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    self._running = False
+                    self.running = False
                 elif event.key == pygame.K_LEFT:
                     self._piece.try_move(0, -1)
                 elif event.key == pygame.K_RIGHT:
@@ -393,7 +386,7 @@ class Game:
         pygame.display.flip()
 
 class Loop:
-    def __init__(self, field: Map, ui: userinterface.UI, game: Game):
+    def __init__(self, game: Game):
         """The main loop for the gameplay
 
         Args:
@@ -401,9 +394,9 @@ class Loop:
             ui (): The userinteface 
         """
         self._game = game
-        self._field = field
-        self._ui = ui
-        self._running = True
+        self._field = game._field
+        self._ui = game._ui
+        self.running = True
 
         # Game state
 
@@ -417,13 +410,15 @@ class Loop:
 
         # Initial piece
         if not self._game._piece.spawn():
-            self._running = False
+            self.running = False
 
-        while self._running:
+        while self.running:
+            print(self.running)
             self._game._clock.tick(60)  # limit to 60 FPS
             self._game.process_input()
             self._game.gravity_step(self._game._clock.get_ticks())
             self._game.draw()
+
 
         # Game over screen
         self._ui.draw_game_over(self._game._score)
