@@ -3,7 +3,6 @@ import userinterface
 from tetromino import Tetromino
 from map import Map
 
-
 class Clock:
     """
     Controls the ingame clock
@@ -107,12 +106,30 @@ class Game:
                 self.handle_lock_and_new()
             self._last_fall_tick = now_ticks
 
+    def return_score(self):
+        """returns score
+
+        Returns:
+            int: Score
+        """
+        return self._score
+
     def draw(self):
         # Render static field
         self._ui.draw_grid(self._field)
         # Render current piece as overlay
-        self._ui.draw_piece(self._piece.return_block_as_list(), self._piece.return_block_position, self._piece.return_color)
+        block_position =  self._piece.return_block_position()
+        self._ui.draw_piece(
+                            self._piece.return_block_as_list(),
+                            block_position[0],
+                            block_position[1],
+                            self._piece.return_color()
+                            )
         # HUD
         self._ui.draw_hud(score=self._score, level=self._level,
                           lines=self._lines_cleared)
         pygame.display.flip()
+
+    def spawn_piece(self):
+        return self._piece.spawn()
+

@@ -101,8 +101,8 @@ class Tetromino:
                 if v == 1:
                     r = top_r + i_r
                     c = left_c + i_c
-                    if self.in_bounds(r, c) and self.get_cell(r, c) != 0:
-                        self.set_cell(r, c, 0)
+                    if self._field.in_bounds(r, c) and self._field.get_cell(r, c) != 0:
+                        self._field.set_cell(r, c, 0)
 
     def try_move(self, amount_of_rows, amount_of_columns):
         """Moves the current piece the amount of rows and columns specified

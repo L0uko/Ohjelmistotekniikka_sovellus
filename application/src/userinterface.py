@@ -1,4 +1,5 @@
 import pygame
+from map import Map
 class UI:
     def __init__(self, cell_size=30):
         self.cell_size = cell_size
@@ -24,7 +25,12 @@ class UI:
         # cell border
         pygame.draw.rect(self.screen, self.grid_color, rect, 1)
 
-    def draw_grid(self, field):
+    def draw_grid(self, field: Map):
+        """Draws the playgrid
+
+        Args:
+            field (Map): Input the map
+        """
         self.screen.fill(self.bg_color)
         rows = field.rows()
         cols = field.columns()
