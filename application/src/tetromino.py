@@ -12,6 +12,8 @@ class Tetromino:
         self._field = field
         self._shape_index = 0
         self._block = None
+        self._current_bag = [0,1,2,3,4,5,6]
+        self._current_bag_index = 0
         self._top_row = 0
         self._left_column = 0
         self._color = (255, 255, 255)
@@ -50,7 +52,12 @@ class Tetromino:
         blocks = self._field.return_block_list()
         # If caller provides shape_index, use it; otherwise random
         if shape_index is None:
-            self._shape_index = random.randint(0, len(blocks) - 1)
+            # Use the current bag to ensure all pieces appear before repeating
+            if self._current_bag_index >= len(self._current_bag):
+                random.shuffle(self._current_bag)
+                self._current_bag_index = 0
+            self._shape_index = self._current_bag[self._current_bag_index]
+            self._current_bag_index += 1
         else:
             # Clamp to valid range
             self._shape_index = max(0, min(shape_index, len(blocks) - 1))

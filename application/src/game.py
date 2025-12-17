@@ -17,8 +17,6 @@ class Clock:
     def get_ticks(self):
         return pygame.time.get_ticks()
 
-
-
 class Game:
     def __init__(self, field: Map, ui: userinterface.UI):
         """Game object that has functions
@@ -132,4 +130,3 @@ class Game:
 
     def spawn_piece(self):
         return self._piece.spawn()
-
