@@ -1,5 +1,5 @@
 import random
-from map import Map
+from logic.map import Map
 
 class Tetromino:
 
@@ -40,7 +40,7 @@ class Tetromino:
         return self._color
 
     def spawn(self, shape_index=None):
-        """spawns a random tetromino or a from a chosen index
+        """spawns a random tetromino from current bag or a from a chosen index
 
         Args:
             shape_index (int, optional): index of the tetromino. Defaults to None.

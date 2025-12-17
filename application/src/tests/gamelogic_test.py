@@ -1,6 +1,6 @@
 import unittest
-from map import Map
-from tetromino import Tetromino
+from logic.map import Map
+from logic.tetromino import Tetromino
 
 
 class TestMap(unittest.TestCase):

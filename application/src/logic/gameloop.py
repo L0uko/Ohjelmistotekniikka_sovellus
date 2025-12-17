@@ -1,6 +1,6 @@
 import time
 import pygame
-from game import Game, Clock
+from logic.game import Game, Clock
 
 class Loop:
     def __init__(self, game: Game):

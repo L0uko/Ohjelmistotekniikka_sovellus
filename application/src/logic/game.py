@@ -1,7 +1,7 @@
 import pygame
 import userinterface
-from tetromino import Tetromino
-from map import Map
+from logic.tetromino import Tetromino
+from logic.map import Map
 
 class Clock:
     """

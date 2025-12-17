@@ -1,6 +1,6 @@
-from gameloop import Loop
-from game import Game
-from map import Map
+from logic.gameloop import Loop
+from logic.game import Game
+from logic.map import Map
 import userinterface
 
 

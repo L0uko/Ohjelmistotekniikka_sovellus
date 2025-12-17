@@ -1,5 +1,5 @@
 import pygame
-from map import Map
+from logic.map import Map
 class UI:
     def __init__(self, cell_size=30):
         self.cell_size = cell_size
