@@ -68,4 +68,75 @@ class TestRotate(unittest.TestCase):
                         [1,1],
                         [1,0]
                          ])
+
+    def test_rotate_o(self):
+        self._block =  [
+                    [1, 1],
+                    [1, 1]
+        ]
+        self.assertEqual(self._tetromino.rotate_block(self._block),
+                         [
+                        [1,1],
+                        [1,1]
+                         ])
+    
+    def test_rotate_s(self):
+        self._block =  [
+                    [0, 1, 1],
+                    [1, 1, 0]
+        ]
+        self.assertEqual(self._tetromino.rotate_block(self._block),
+                         [
+                        [1,0],
+                        [1,1],
+                        [0,1]
+                         ])
+
+    def test_rotate_s_faulty(self):
+        self._block =  [
+                    [0, 1, 0],
+                    [1, 1, 0]
+        ]
+        self.assertNotEqual(self._tetromino.rotate_block(self._block),
+                         [
+                        [1,0],
+                        [1,1],
+                        [0,1]
+                         ])
+
+    def test_rotate_z(self):
+        self._block =  [
+                    [1, 1, 0],
+                    [0, 1, 1]
+        ]
+        self.assertEqual(self._tetromino.rotate_block(self._block),
+                         [
+                        [0,1],
+                        [1,1],
+                        [1,0]
+                         ])
+        
+    def test_rotate_j(self):
+        self._block =  [
+                    [1, 0, 0],
+                    [1, 1, 1]
+        ]
+        self.assertEqual(self._tetromino.rotate_block(self._block),
+                         [
+                        [1,1],
+                        [1,0],
+                        [1,0]
+                         ])
+        
+    def test_rotate_l(self):
+        self._block =  [
+                    [0, 0, 1],
+                    [1, 1, 1]
+        ]
+        self.assertEqual(self._tetromino.rotate_block(self._block),
+                         [
+                        [1,0],
+                        [1,0],
+                        [1,1]
+                         ])
         

@@ -103,6 +103,9 @@ class Game:
             if not moved:
                 self.handle_lock_and_new()
             self._last_fall_tick = now_ticks
+            return True
+        else:
+            return False
 
     def return_score(self):
         """returns score
