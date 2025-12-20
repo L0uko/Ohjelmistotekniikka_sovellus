@@ -22,3 +22,7 @@ class TestGame(unittest.TestCase):
         self._now_ticks = 300
         self._game._last_fall_tick = 100
         self.assertFalse(self._game.gravity_step(self._now_ticks))
+
+    def test_return_score(self):
+        self._game._score = 6969
+        self.assertEqual(self._game.return_score(),6969)
