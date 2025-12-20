@@ -68,7 +68,7 @@ class Tetromino:
         rot_count = random.randint(0, 3)
         self._block = base
         for _ in range(rot_count):
-            self._block = self.rotate_block()
+            self._block = self.rotate_block(self._block)
 
         self._color = self._field.color_for_index(self._shape_index)
 
@@ -82,10 +82,10 @@ class Tetromino:
 
     # --- Piece operations ---
 
-    def rotate_block(self):
+    def rotate_block(self, block):
         """Rotate block matrix clockwise."""
         # Transpose and reverse rows
-        return [list(reversed(col)) for col in zip(*self._block)]
+        return [list(reversed(col)) for col in zip(*block)]
 
     def can_place(self, block, top_row, left_column):
         """Check if block fits with no collision at (top_r, left_c)."""
@@ -137,7 +137,7 @@ class Tetromino:
             Bool: True if placed \n
             False if not placed
         """
-        rotated = self.rotate_block()
+        rotated = self.rotate_block(self._block)
         # Wall-kick attempts (simple): try same col, then +/-1 shift
         for kick in [(0, 0), (0, -1), (0, 1), (0, -2), (0, 2)]:
             nr = self._top_row + kick[0]
