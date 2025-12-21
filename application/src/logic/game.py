@@ -116,6 +116,8 @@ class Game:
         return self._score
 
     def draw(self):
+        """Gives UI commands to draw the field
+        """
         # Render static field
         self._ui.draw_grid(self._field)
         # Render current piece as overlay
@@ -132,4 +134,6 @@ class Game:
         pygame.display.flip()
 
     def spawn_piece(self):
+        """Gives Tetromino the command to spawn a new piece. Made for linting reasons
+        """
         return self._piece.spawn()

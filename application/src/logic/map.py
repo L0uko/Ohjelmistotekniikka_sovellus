@@ -102,6 +102,13 @@ class Map:
         return self._map[column][row]
 
     def set_cell(self, r, c, val):
+        """Sets the Tetromino in place and puts the color value on
+
+        Args:
+            r (int): row
+            c (int): column
+            val (): color value or 1
+        """
         self._map[c][r] = val
 
     def clear_full_lines(self):
